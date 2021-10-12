@@ -30,22 +30,17 @@ if (localKeysPropertiesFile.exists()) {
         keystoreProperties.load(reader)
     }
 } else {
-    project.logger.info('Load maps properties from environment')
+    project.logger.info('Load signing keys properties from environment')
     try {
-        keystoreProperties['keyAlias'] = System.getenv('KEY_ALIAS')
-        keystoreProperties['keyPassword'] = System.getenv('KEY_PASSWORD')
-        keystoreProperties['storeFile'] = System.getenv('STORE_FILE')
-        keystoreProperties['storePassword'] = System.getenv('STORE_PASSWORD')
+        keystoreProperties['keyAlias'] = System.getenv('SIGNING_KEY_ALIAS')
+        keystoreProperties['keyPassword'] = System.getenv('SIGNING_KEY_PASSWORD')
+        keystoreProperties['storeFile'] = System.getenv('SIGNING_STORE_FILE')
+        keystoreProperties['storePassword'] = System.getenv('SIGNING_STORE_PASSWORD')
     } catch(NullPointerException e) {
         project.logger.warn('Failed to load KEYS_ALIAS, KEY_PASSWORD, STORE_FILE, STORE_PASSWORD from environment.', e)
     }
 }
-def mapsApiKey = mapsProperties.getProperty('MAPS_API_KEY')
-if(mapsApiKey == null){
-    mapsApiKey = ""
-    throw new GradleException('Google Maps Api Key not configured. Set it in `local_maps.properties` or in the environment variable `MAPS_API_KEY`')
-}
-// End of MAPS_API_KEY
+// End of SIGNING_KEY
 
 
 def localProperties = new Properties()
