@@ -76,8 +76,18 @@ jobs:
       with:
         path: /opt/hostedtoolcache/flutter
         key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
-    - run: flutter build apk
-    - run: flutter build appbundle
+    - name: Create the Keystore
+      env:
+        KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        KEY_ALIAS: "upload"
+        KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+        STORE_FILE: "./release.keystore"
+        STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      run: |
+        # import keystore from secrets
+        echo $KEYSTORE_BASE64 | base64 -d > ./release.keystore
+    - run: flutter build apk --release
+    - run: flutter build appbundle --release
     
     - uses: actions/upload-artifact@v2
       if: success()
