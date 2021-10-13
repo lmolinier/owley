@@ -94,12 +94,18 @@ jobs:
       with:
         name: android-release
         path: build/app/outputs/flutter-apk/app-release.apk
-        
+
     - uses: actions/upload-artifact@v2
       if: success()
       with:
         name: android-release
         path: build/app/outputs/bundle/release/app-release.aab
+
+    - uses: marcoslopes/git-notes-action@v1
+      with:
+        sha: ${{ github.sha }}
+        ref: 'android-build'
+        message: "${{ env.GITHUB_RUN_ID }}"
 
   # ios:
   #   needs: test

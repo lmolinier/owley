@@ -17,11 +17,18 @@ jobs:
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - id: get-run-id
+        uses: marcoslopes/git-notes-action@v1
+        with:
+            sha: ${{ github.sha }}
+            ref: 'android-build'
+    
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: CI
-          run_id: ${{github.event.inputs.run_id}}
+          run_id: ${{ steps.get-run-id.outputs.message }}
 #          workflow_conclusion: success
 #          commit: ${{ github.sha }}
 
