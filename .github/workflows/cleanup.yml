@@ -1,4 +1,4 @@
-name: clean artifacts
+name: cleanup
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
   #  - cron: '0 0 * * *'
 
 jobs:
-  clean:
+  artifacts:
     runs-on: ubuntu-latest
     steps:
       - name: cleanup
