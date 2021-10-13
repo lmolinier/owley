@@ -20,8 +20,8 @@ jobs:
       - id: get-run-id
         uses: marcoslopes/git-notes-action@v1
         with:
-            sha: ${{ github.sha }}
-            ref: 'android-build'
+          sha: ${{ github.sha }}
+          ref: 'android-build'
     
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
