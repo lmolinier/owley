@@ -22,9 +22,7 @@ jobs:
         with:
           workflow: CI
           workflow_conclusion: success
-          commit: ${{github.sha }}
-          name: android-release
-          check_artifacts: true
+          commit: ${{ github.sha }}
 
       - name: Create Release
         id: create_release
