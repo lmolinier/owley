@@ -105,7 +105,7 @@ jobs:
       with:
         sha: ${{ github.sha }}
         ref: 'android-build'
-        message: "${{ env.GITHUB_RUN_ID }}"
+        message: "${{ github.run_id }}"
 
   # ios:
   #   needs: test
