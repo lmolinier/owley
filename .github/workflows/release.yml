@@ -22,8 +22,7 @@ jobs:
         with:
           workflow: CI
           workflow_conclusion: success
-          commit: ${{github.event.pull_request.head.sha}}
-          branch: master
+          commit: ${{github.sha }}
           name: android-release
           check_artifacts: true
 
