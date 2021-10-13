@@ -58,7 +58,7 @@ jobs:
         key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
 #    - run: flutter test
 
-  android:
+  build-android:
     needs: test
     runs-on: ubuntu-latest
     env:
@@ -93,9 +93,13 @@ jobs:
       if: success()
       with:
         name: android-release
-        path: |
-          build/app/outputs/flutter-apk/app-release.apk
-          build/app/outputs/bundle/release/app-release.aab
+        path: build/app/outputs/flutter-apk/app-release.apk
+        
+    - uses: actions/upload-artifact@v2
+      if: success()
+      with:
+        name: android-release
+        path: build/app/outputs/bundle/release/app-release.aab
 
   # ios:
   #   needs: test
