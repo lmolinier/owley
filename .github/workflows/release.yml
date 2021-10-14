@@ -25,6 +25,13 @@ jobs:
           workflow: CI
           run_id: ${{ steps.get-run-id.outputs.message }}
 
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@5
+        with:
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -32,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ steps.tag.outputs.result }}
           draft: false
           prerelease: false
 
@@ -43,7 +50,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: android-release/app-release.apk
-          asset_name: ${{ env.appname }}-${{ github.ref }}.aab
+          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.result }}.apk
           asset_content_type: application/vnd.android.package-archive
 
       - name: Upload Release Asset (aab)
@@ -53,5 +60,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: android-release/app-release.aab
-          asset_name: ${{ env.appname }}-${{ github.ref }}.aab
+          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.result }}.aab
           asset_content_type: application/x-authorware-bin
