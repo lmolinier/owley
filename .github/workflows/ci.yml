@@ -89,8 +89,8 @@ jobs:
         # import keystore from secrets
         env
         echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
-    - run: flutter build apk --release --build-name ${{ steps.ghd.outputs.tag }} --build-number ${{ github.run_number }}
-    - run: flutter build appbundle --release --build-name ${{ steps.ghd.outputs.tag }} --build-number ${{ github.run_number }}
+    - run: flutter build apk --release --build-name ${{ steps.ghd.outputs.describe }} --build-number ${{ github.run_number }}
+    - run: flutter build appbundle --release --build-name ${{ steps.ghd.outputs.describe }} --build-number ${{ github.run_number }}
     
     - uses: actions/upload-artifact@v2
       if: success()
