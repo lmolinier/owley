@@ -129,4 +129,4 @@ jobs:
   create-release:
     needs: [build-android]
     if: startsWith( github.ref, 'refs/tags/')
-    uses: github.com/lmolinier/demogonio/.github/workflows/release.yml@${{ github.sha }}
+    uses: lmolinier/demogonio/.github/workflows/release.yml@${{ github.sha }}
