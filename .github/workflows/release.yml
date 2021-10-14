@@ -1,5 +1,8 @@
 on:
   workflow_call:
+    secrets:
+      GOOGLE_PLAY_KEY:
+        required: true
 
 name: Release
 
