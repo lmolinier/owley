@@ -123,9 +123,7 @@ jobs:
   #   - run: flutter build apk
   #   - run: flutter build ios --release --no-codesign
 
-  create-release:
+  release:
     needs: [build-android]
     if: startsWith( github.ref, 'refs/tags/')
     uses: lmolinier/demogonio/.github/workflows/release.yml@main
-    with:
-      run-id: ${{ github.run_id }}

@@ -1,14 +1,11 @@
 on:
   workflow_call:
-    inputs:
-      run-id:
-        required: true
-        type: string
 
 name: Release
 
 env:
   appname: demogonio
+  appkey: eu.molinier.demogonio
 
 jobs:
   build:
@@ -16,10 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-#        uses: dawidd6/action-download-artifact@v2
-#        with:
-#          workflow: CI
-#          run_id: ${{ inputs.run-id }}
         uses: actions/download-artifact@v2
 
       - name: Extract tag name
@@ -58,3 +51,12 @@ jobs:
           asset_path: android-release/app-release.aab
           asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.aab
           asset_content_type: application/x-authorware-bin
+
+  deploy:
+  - name: Deploy to Internal
+    uses: r0adkll/upload-google-play@v1
+    with:
+      serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
+      packageName: ${{ env.appkey }}
+      releaseFile: android-release/app-release.aab
+      track: internal
