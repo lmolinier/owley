@@ -1,0 +1,43 @@
+// Tweak to extract the SIGNING KEY from evironment or local_keys.properties
+def keystoreProperties = new Properties()
+def localKeysPropertiesFile = rootProject.file('local_keys.properties')
+if (localKeysPropertiesFile.exists()) {
+    project.logger.info('Load keys properties from local file')
+    localKeysPropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+} else {
+    project.logger.info('Load signing keys properties from environment')
+    try {
+        keystoreProperties['keyAlias'] = System.getenv('SIGNING_KEY_ALIAS')
+        keystoreProperties['keyPassword'] = System.getenv('SIGNING_KEY_PASSWORD')
+        keystoreProperties['storeFile'] = System.getenv('SIGNING_STORE_FILE')
+        keystoreProperties['storePassword'] = System.getenv('SIGNING_STORE_PASSWORD')
+    } catch(NullPointerException e) {
+        project.logger.warn('Failed to load KEYS_ALIAS, KEY_PASSWORD, STORE_FILE, STORE_PASSWORD from environment.', e)
+    }
+}
+def isCustom = true
+if(keystoreProperties['keyAlias'] == null 
+    || keystoreProperties['keyPassword'] == null 
+    || keystoreProperties['storeFile'] == null
+    || keystoreProperties['storePassword'] == null) {
+    isCustom = false
+} else {
+    apply plugin: 'com.android.application'
+    android {
+        signingConfigs {
+            custom {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']):null
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+}
+
+ext {
+    customSigning = isCustom
+}
+// End of SIGNING_KEY
