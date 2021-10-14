@@ -105,6 +105,7 @@ jobs:
       with:
         sha: ${{ github.sha }}
         ref: 'android-build'
+        override: true
         message: "${{ github.run_id }}"
 
   # ios:
