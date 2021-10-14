@@ -24,10 +24,9 @@ jobs:
 
       - name: Extract tag name
         id: tag
-        uses: actions/github-script@v5
+        uses: olegtarasov/get-tag@v2.1
         with:
-          script: |
-            return context.payload.ref.replace(/\/refs\/tags\//, '');
+          tagRegex: "(?<version>.*)"
 
       - name: Create Release
         id: create_release
@@ -36,7 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag.outputs.result }}
+          release_name: Release ${{ steps.tag.outputs.version }}
           draft: false
           prerelease: false
 
@@ -45,9 +44,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: android-release/app-release.apk
-          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.result }}.apk
+          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.apk
           asset_content_type: application/vnd.android.package-archive
 
       - name: Upload Release Asset (aab)
@@ -55,7 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: android-release/app-release.aab
-          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.result }}.aab
+          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.aab
           asset_content_type: application/x-authorware-bin
