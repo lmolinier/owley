@@ -77,17 +77,19 @@ class MyHomePageState extends State<MyHomePage> {
   initState() {
     super.initState();
 
-    // Update the position (and compass).
-    PositionTracker.init().then((tracker) {
-      tracker?.onChanged?.listen((Position position) {
-        setState(() {
-          _wantedPosition = CameraPosition(
-              target: LatLng(
-                  position.location!.latitude!, position.location!.longitude!),
-              bearing: position.bearing ?? 0,
-              tilt: _wantedPosition.tilt,
-              zoom: _wantedPosition.zoom);
-          _wantedLocation = position.location!;
+    Future.delayed(const Duration(seconds: 5), () {
+      // Update the position (and compass).
+      PositionTracker.init().then((tracker) {
+        tracker?.onChanged?.listen((Position position) {
+          setState(() {
+            _wantedPosition = CameraPosition(
+                target: LatLng(position.location!.latitude!,
+                    position.location!.longitude!),
+                bearing: position.bearing ?? 0,
+                tilt: _wantedPosition.tilt,
+                zoom: _wantedPosition.zoom);
+            _wantedLocation = position.location;
+          });
         });
       });
     });
@@ -113,7 +115,6 @@ class MyHomePageState extends State<MyHomePage> {
               heading: (_wantedPosition.bearing + 360) % 360,
               width: 5)
           .asPolygon());
-      print(_wantedPosition.bearing);
     });
   }
 
