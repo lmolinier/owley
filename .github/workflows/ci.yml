@@ -66,7 +66,7 @@ jobs:
       KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
       SIGNING_KEY_ALIAS: "upload"
       SIGNING_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-      SIGNING_STORE_FILE: ${{ env.RUNNER_TEMP }}/release.keystore
+      SIGNING_STORE_FILE: "${{ env.RUNNER_TEMP }}/release.keystore"
       SIGNING_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
     steps:
     - uses: actions/checkout@v2
