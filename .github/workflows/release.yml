@@ -11,50 +11,52 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
+    - name: Download artifact
+      uses: actions/download-artifact@v2
 
-      - name: Extract tag name
-        id: tag
-        uses: olegtarasov/get-tag@v2.1
-        with:
-          tagRegex: "(?<version>.*)"
+    - name: Extract tag name
+      id: tag
+      uses: olegtarasov/get-tag@v2.1
+      with:
+        tagRegex: "(?<version>.*)"
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag.outputs.version }}
-          draft: false
-          prerelease: false
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ steps.tag.outputs.version }}
+        draft: false
+        prerelease: false
 
-      - name: Upload Release Asset (apk)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: android-release/app-release.apk
-          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.apk
-          asset_content_type: application/vnd.android.package-archive
+    - name: Upload Release Asset (apk)
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: android-release/app-release.apk
+        asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.apk
+        asset_content_type: application/vnd.android.package-archive
 
-      - name: Upload Release Asset (aab)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: android-release/app-release.aab
-          asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.aab
-          asset_content_type: application/x-authorware-bin
+    - name: Upload Release Asset (aab)
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: android-release/app-release.aab
+        asset_name: ${{ env.appname }}-${{ steps.tag.outputs.version }}.aab
+        asset_content_type: application/x-authorware-bin
 
   deploy:
     runs-on: ubuntu-latest
-    needs: release
     steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+
     - name: Deploy to Internal
       uses: r0adkll/upload-google-play@v1
       with:
