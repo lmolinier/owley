@@ -1,10 +1,6 @@
 on:
-  workflow_run:
-    workflows: ['CI']                     # runs after CI workflow
-    types:
-      - completed
-    tags:
-      - 'v*'
+  workflow_dispatch:
+  workflow_call:
 
 name: Release
 
@@ -28,8 +24,6 @@ jobs:
         with:
           workflow: CI
           run_id: ${{ steps.get-run-id.outputs.message }}
-#          workflow_conclusion: success
-#          commit: ${{ github.sha }}
 
       - name: Create Release
         id: create_release

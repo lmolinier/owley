@@ -125,3 +125,8 @@ jobs:
   #       key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
   #   - run: flutter build apk
   #   - run: flutter build ios --release --no-codesign
+
+  create-release:
+    needs: [build-android]
+    if: startsWith( github.ref, 'refs/tags/')
+    uses: github.com/${{ github.repository }}/.github/workflows/release.yml@${{ github.sha }}
