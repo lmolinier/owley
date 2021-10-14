@@ -3,6 +3,7 @@ on:
     inputs:
       run-id:
         required: true
+        type: string
 
 
 name: Release
