@@ -61,5 +61,5 @@ jobs:
       with:
         serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
         packageName: ${{ env.appkey }}
-        releaseFile: android-release/app-release.aab
-        track: internal
+        releaseFiles: android-release/app-release.aab
+        track: internalsharing
