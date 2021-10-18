@@ -13,6 +13,7 @@ env:
 
 jobs:
   download:
+    runs-on: ubuntu-latest
     steps:
     - name: download
       uses: dsaltares/fetch-gh-release-asset@master
