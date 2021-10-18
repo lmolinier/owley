@@ -14,13 +14,13 @@ env:
 jobs:
   download:
     steps:
-    - uses: dsaltares/fetch-gh-release-asset@master
+    - name: download
+      uses: dsaltares/fetch-gh-release-asset@master
       with:
-        version: "tags/${{ github.event.inputs.tag }}""
+        version: "tags/${{ github.event.inputs.tag }}"
         file: "${{ env.appname }}-${{ github.event.inputs.tag }}.aab"
         target: "release.aab"
         token: ${{ secrets.GITHUB_TOKEN }}
-
   
   deploy:
     runs-on: ubuntu-latest
