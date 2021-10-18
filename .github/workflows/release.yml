@@ -67,3 +67,4 @@ jobs:
         packageName: ${{ env.appkey }}
         releaseFiles: android-release/app-release.aab
         track: internal
+        status: completed
