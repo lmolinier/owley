@@ -33,3 +33,4 @@ jobs:
         packageName: ${{ env.appkey }}
         releaseFiles: release.aab
         track: ${{ github.event.inputs.track }}
+        status: "completed"
