@@ -4,6 +4,9 @@ on:
       tag:
         description: "release tag"
         required: true
+      track:
+        description: "playstore track"
+        default: internal
 
 name: Google Playstore
 
@@ -29,4 +32,4 @@ jobs:
         serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
         packageName: ${{ env.appkey }}
         releaseFiles: release.aab
-        track: internal
+        track: alpha
