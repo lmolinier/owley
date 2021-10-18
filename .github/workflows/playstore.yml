@@ -32,4 +32,4 @@ jobs:
         serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
         packageName: ${{ env.appkey }}
         releaseFiles: release.aab
-        track: alpha
+        track: ${{ github.event.inputs.track }}
