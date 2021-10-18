@@ -168,6 +168,7 @@ class GonioMapState extends State<GonioMap> {
                     fillColor: Colors.red.shade200.withOpacity(0.5),
                     strokeColor: Colors.red.shade600.withOpacity(0.9),
                     strokeWidth: 3,
+                    consumeTapEvents: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Row(
