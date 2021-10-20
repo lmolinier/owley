@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:demogonio/geocalc/coord.dart';
+import 'package:owley/geocalc/coord.dart';
 
 import 'distance.dart';
 

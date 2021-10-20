@@ -7,8 +7,8 @@ on:
 name: Release
 
 env:
-  appname: demogonio
-  appkey: eu.molinier.demogonio
+  appname: owley
+  appkey: eu.molinier.owley
 
 jobs:
   create:

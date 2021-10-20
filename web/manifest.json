@@ -1,11 +1,11 @@
 {
-    "name": "demogonio",
-    "short_name": "demogonio",
+    "name": "Owley Last Mile Recovery",
+    "short_name": "owley",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Owley Last Mile Recovery Application",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

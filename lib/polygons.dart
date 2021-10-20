@@ -1,4 +1,4 @@
-import 'package:demogonio/geocalc/distance.dart';
+import 'package:owley/geocalc/distance.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Cone {

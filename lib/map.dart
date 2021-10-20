@@ -1,5 +1,5 @@
-import 'package:demogonio/polygons.dart';
-import 'package:demogonio/position.dart';
+import 'package:owley/polygons.dart';
+import 'package:owley/position.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

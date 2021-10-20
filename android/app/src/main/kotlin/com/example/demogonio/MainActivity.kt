@@ -1,4 +1,4 @@
-package com.example.demogonio
+package eu.molinier.owley
 
 import io.flutter.embedding.android.FlutterActivity
 

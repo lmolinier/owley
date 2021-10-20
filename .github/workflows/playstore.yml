@@ -11,8 +11,8 @@ on:
 name: Google Playstore
 
 env:
-  appname: demogonio
-  appkey: eu.molinier.demogonio
+  appname: owley
+  appkey: eu.molinier.owley
 
 jobs:
   download:

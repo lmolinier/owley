@@ -1,5 +1,5 @@
-import 'package:demogonio/geocalc/coord.dart';
-import 'package:demogonio/geocalc/harvesine.dart';
+import 'package:owley/geocalc/coord.dart';
+import 'package:owley/geocalc/harvesine.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class DistanceCalculator {

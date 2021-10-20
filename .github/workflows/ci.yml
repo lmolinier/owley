@@ -126,6 +126,6 @@ jobs:
   release:
     needs: [build-android]
     if: startsWith( github.ref, 'refs/tags/')
-    uses: lmolinier/demogonio/.github/workflows/release.yml@main
+    uses: lmolinier/owley/.github/workflows/release.yml@main
     secrets:
       GOOGLE_PLAY_KEY: ${{ secrets.GOOGLE_PLAY_KEY }}

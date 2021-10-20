@@ -45,7 +45,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "eu.molinier.demogonio"
+        applicationId "eu.molinier.owley"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
